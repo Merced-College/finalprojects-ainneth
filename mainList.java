@@ -29,7 +29,7 @@ class Task {
      public String toString() {
          return description;
     }
-}
+}//class task end
 
 class TaskManager{
     private ArrayList<Task> tasks = new ArrayList<>();
@@ -39,8 +39,9 @@ class TaskManager{
 
     
         public void addTask(String desc){
-            tasks.add(new Task(desc));
-            taskQueue.add(new Task(desc));
+            Task task = new Task(desc);
+            tasks.add(task);                // section fixed from assistance of CHATPGT, since original
+            taskQueue.add(task);            // problem was creating 2 different task ovjects 
         }
         public void removeTask(int index){
             if(index >= 0 && index < tasks.size()) {         // tasknumber has been switched to index           GITHUB FIXED TASK REMOVAL ERROR
@@ -56,6 +57,7 @@ class TaskManager{
             public void undoRemove() {
                 if (!undoStack.isEmpty()) {
                     Task restored = undoStack.pop();
+                    tasks.add(restored); // asistance from CHATGPT, since task wasn't added back
                     System.out.println("Task restored: " + restored);
                 } else {
                     System.out.println( "Nothing to undo.");
@@ -137,10 +139,10 @@ class MenuScreen {
         this.manager = manager;
     }
     public void start() {
-        int option;
+        int option =0;
 
         //removed of   loadTasks(tasks);
-
+    do {
         System.out.println( "To-Do List Menu");
         System.out.println( "1. View Tasks");
         System.out.println("2. Add a Task");
@@ -150,7 +152,15 @@ class MenuScreen {
         System.out.println("6. Leave");
         System.out.println("Choose an option: ");
 
-        option = scanner.nextInt();
+        if (scanner.hasNextInt()) {
+            option = scanner.nextInt();
+        } else {
+            System.out.println("Uh-oh. That's not right. Please enter a number listed in the menu!");
+            scanner.nextLine();
+            continue;
+        }
+
+
         scanner.nextLine();
 
         //Source: Java Switch Statements from W3Schools
@@ -158,7 +168,7 @@ class MenuScreen {
 
         /* rather than using if else statements, the switch statement provides
          a easier view of when a choice is made */
-        switch(option){
+        switch(option) {
             case 1:
                 manager.listTasks();
                 break;
@@ -171,10 +181,10 @@ class MenuScreen {
             case 3:
                  System.out.println("Enter Task # to remove task:");
                  int taskNumber = scanner.nextInt();
+                 scanner.nextLine(); // Assistance from CHATPT to fix error after removing task
                  manager.removeTask(taskNumber-1);
                  FileHandler.save(manager.getTasks());
                     break;
-
             case 4:
                 manager.undoRemove();
                 FileHandler.save(manager.getTasks()); //Github added this
@@ -182,15 +192,20 @@ class MenuScreen {
 
             case 5:
                 manager.processNextTask();
-                FuleHandler.save(manager.getTasks());
+                FileHandler.save(manager.getTasks());
+                break;
                     
              case 6:
                 System.out.println("Bye!");
                 break;
-                }
 
-                } while (option !=6); //LOOP ADDED LETS GOO
+                default:
+                    System.out.println( "Invalid option. Please choose a listed number.");
             }
+            } while (option !=6); //LOOP ADDED LETS GOO
+        }
+    }
+           
 
 
 
@@ -207,6 +222,4 @@ public class mainList {
         menu.start();
     }
 
-
-
-    }
+    }//class mainList end
