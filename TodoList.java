@@ -38,4 +38,8 @@ public class TodoList {
 
 
 
-}
+}// ToDo list class
+
+public class ListManager {
+
+}// end of ListManager class
