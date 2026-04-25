@@ -43,8 +43,8 @@ class TaskManager{
             taskQueue.add(new Task(desc));
         }
         public void removeTask(int index){
-            if(index >= 0 && index < tasks.size()) {         // tasknumber has been switched to index
-                    tasks.remove(index);                    //along with <= becoming just < and 
+            if(index >= 0 && index < tasks.size()) {         // tasknumber has been switched to index           GITHUB FIXED TASK REMOVAL ERROR
+                    Task removed = tasks.remove(index);        //along with <= becoming just < and 
                     undoStack.push(removed);
                 System.out.println( "Task removed successfully.");           
             } else {
@@ -57,11 +57,19 @@ class TaskManager{
                 if (!undoStack.isEmpty()) {
                     Task restored = undoStack.pop();
                     System.out.println("Task restored: " + restored);
-                }else {
-                    System.out.println( "Nothing to undo.")
+                } else {
+                    System.out.println( "Nothing to undo.");
                 }
+            }//end of undoRemove
+
+        public void processNextTask() {
+            if ( !taskQueue.isEmpty()) {
+                Task next = taskQueue.poll();
+                System.out.println( "Processing the next task: " + next);
+            }else{ 
+                System.out.println("No tasks in the queue to process.");
             }
-     }//end of undoRemove
+        }
 
 
         public void listTasks() {
@@ -80,6 +88,7 @@ class TaskManager{
 
     public void setTasks(ArrayList<Task> loadedTasks) {
         tasks = loadedTasks;
+        taskQueue.addAll(loadedTasks); // GITHUB added this to ensure that loaded tasks are also added to the queue for processing
     }
 }// class taskManager
 
@@ -136,7 +145,9 @@ class MenuScreen {
         System.out.println( "1. View Tasks");
         System.out.println("2. Add a Task");
         System.out.println("3. Remove a Task");
-        System.out.println("4. Leave");
+        System.out.println("4. Undo Removal");
+        System.out.println("5. Continue with Next Task");
+        System.out.println("6. Leave");
         System.out.println("Choose an option: ");
 
         option = scanner.nextInt();
@@ -163,13 +174,22 @@ class MenuScreen {
                  manager.removeTask(taskNumber-1);
                  FileHandler.save(manager.getTasks());
                     break;
+
+            case 4:
+                manager.undoRemove();
+                FileHandler.save(manager.getTasks()); //Github added this
+                break;
+
+            case 5:
+                manager.processNextTask();
+                FuleHandler.save(manager.getTasks());
                     
-             case 4:
+             case 6:
                 System.out.println("Bye!");
                 break;
                 }
 
-                }
+                } while (option !=6); //LOOP ADDED LETS GOO
             }
 
 
