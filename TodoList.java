@@ -36,12 +36,7 @@ public class TodoList {
          a easier view of when a choice is made */
         switch(option){
             case 1:
-                if (tasks.isEmpty()){
-                    System.out.println("There are no tasks available to view.");
-                } else {
-                System.out.println("Viewing tasks...");
-                for (int i =0; i < tasks.size(); i++){
-                    System.out.println((i+1)+ ". " + tasks.get(i));
+                
                 }
                 }
                 break;
@@ -113,6 +108,25 @@ class TaskManager{
                     System.out.println("Uh-oh! Invalid task number. Please try again.");
             }
         }
+        public void listTasks() {
+            if (tasks.isEmpty()){
+                    System.out.println("There are no tasks available to view.");
+                } else {
+                for (int i =0; i < tasks.size(); i++){
+                    System.out.println((i+1)+ ". " + tasks.get(i));
+        }
+    }
+}
+
+    public ArrayList<Task> getTasks() {
+        return tasks;
+    }
+
+    public void setTasks(ArrayList<Task> tasks) {
+        this.tasks = tasks;
+    }
+}
+
 
 public class TodoListnew {
     public static void main(String[] args){
