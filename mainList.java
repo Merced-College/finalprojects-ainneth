@@ -160,7 +160,7 @@ public class mainList {
 
         manager.setTasks(FileHandler.load());
         
-        Menu menu = new Menu(manager);
+        MenuScreen menu = new MenuScreen(manager); // GITHUB FIXED THIS
         menu.start();
     }
 
