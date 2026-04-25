@@ -2,13 +2,17 @@
 //Date: 4/24/2026
 //Final Project: To-Do-List
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io*;
 
 public class TodoList {
-    public static void main(String[] args) {
-        private static final String FILE_NAME = "tasks.txt"; //GITHUB ADDED THIS
+     private static final String FILE_NAME = "tasks.txt"; //GITHUB ADDED THIS
+        public static void main(String[] args) {
         Scanner scanner = new Scanner (System.in);
         ArrayList<String> tasks = new ArrayList<>();// added an array list that declares tasks
         int option;
@@ -35,6 +39,9 @@ public class TodoList {
                     System.out.println("There are no tasks available to view.");
                 } else {
                 System.out.println("Viewing tasks...");
+                for (int i =0; i < tasks.size(); i++){
+                    System.out.println((i+1)+ ". " + tasks.get(i));
+                }
                 }
                 break;
             case 2:
@@ -87,8 +94,4 @@ public class TodoList {
 
             }
         }
-        }
-
-
-
-}// ToDo list class
+        }// ToDo list class
