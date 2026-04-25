@@ -35,6 +35,9 @@ public class TodoList {
                 break;
             case 2:
                 System.out.println("Enter task: ");
+                String task = scanner.nextLine();// GITHUB added this
+                tasks.add(task);
+                System.out.println( "Your task has been added!");
                 break;
             case 3:
                 System.out.println("Remove task:");
