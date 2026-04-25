@@ -2,11 +2,13 @@
 //Date: 4/24/2026
 //Final Project: To-Do-List
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TodoList {
     public static void main(String[] args) {
         Scanner scanner = new Scanner (System.in);
+        ArrayList<String> tasks = new ArrayList<>();// added an array list that declares tasks
         int option;
 
         System.out.println( "To-Do List Menu");
@@ -25,7 +27,11 @@ public class TodoList {
          a easier view of when a choice is made */
         switch(option){
             case 1:
+                if (tasks.isEmpty()){
+                    System.out.println("There are no tasks available to view.");
+                } else {
                 System.out.println("Viewing tasks...");
+                }
                 break;
             case 2:
                 System.out.println("Enter task: ");
@@ -39,7 +45,3 @@ public class TodoList {
 
 
 }// ToDo list class
-
-public class ListManager {
-
-}// end of ListManager class
