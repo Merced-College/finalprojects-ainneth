@@ -10,9 +10,24 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public static void main(String[] args) {
-            ArrayList<String> tasks = new ArrayList<>();// added an array list that declares tasks
+class Task {
+    private String description;
 
+    public Task( String description) {
+    this.description = description;
+}
+
+    public String getDescription() {
+    return description;
+}
+    @Override
+    public String toString() {
+    return description;
+    }
+}
+
+
+}
 class MenuScreen {
     private Scanner scanner = new Scanner (System.in);
     private TaskManager manager = new TaskManager();
