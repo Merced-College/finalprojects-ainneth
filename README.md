@@ -4,3 +4,17 @@
 Upload your final project to this github repo.
 
 Make a README file for your project and put the infor about your project in it - your name, date and what your program does.
+
+Angie Alvarez
+4/24/2026
+
+TITLE: TO-DO List
+Description of the program
+
+How to run the program
+
+Features of the program
+
+Data structures used
+
+Algorithms used
