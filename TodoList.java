@@ -37,6 +37,7 @@ public class TodoList {
                 System.out.println("Enter task: ");
                 String task = scanner.nextLine();// GITHUB added this
                 tasks.add(task);
+                saveTasks(tasks);
                 System.out.println( "Your task has been added!");
                 break;
             case 3:
