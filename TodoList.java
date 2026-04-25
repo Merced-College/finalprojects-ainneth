@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TodoList {
-     private static final String FILE_NAME = "tasks.txt"; //GITHUB ADDED THIS
         public static void main(String[] args) {
         Scanner scanner = new Scanner (System.in);
         ArrayList<String> tasks = new ArrayList<>();// added an array list that declares tasks
@@ -36,16 +35,13 @@ public class TodoList {
          a easier view of when a choice is made */
         switch(option){
             case 1:
-                
-                }
-                }
+                * listtask
                 break;
             case 2:
                 System.out.println("Enter task: ");
                 String task = scanner.nextLine();// GITHUB added this
-                
-                saveTasks(tasks);
-                System.out.println( "Your task has been added!");
+                maager
+                handler
                 break;
             case 3:
                 if(tasks.isEmpty()) { 
@@ -69,30 +65,7 @@ public class TodoList {
                 }
                 
 
-        //Method allows for tasks to be saved
-        // BufferedWriter allows for files to be created an d handles
-        private static void saveTasks(ArrayList<String> tasks) {
-            try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {   // GUTHUB ADDED THIS
-                for (String task : tasks) {                                                 // PLUS SOURCE for understanding:
-                    writer.write(task);                                                         // W3schhols Java Switch
-                    writer.newLine();
-                }
-            } catch (IOException e) {
-                System.out.println("Error saving tasks: " + e.getMessage());
-            }
-        }
-
-        // Similar to previous method, yet now it's to load tasks from file
-        private static void loadTasks(ArrayList<String> tasks){
-            try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
-                while (reader.ready()) {
-                    String task = reader.readLine();
-                    tasks.add(task);
-                }
-            } catch (IOException e) {
-                System.out.println("Error loading tasks: " + e.getMessage());
-
-            }
+        
         }
         }// ToDo list class
 
@@ -127,9 +100,38 @@ class TaskManager{
     }
 }
 
+class FileHandler {
+    private static final String FILE_NAME = "tasks.txt";
 
-public class TodoListnew {
+    //Method allows for tasks to be saved
+        // BufferedWriter allows for files to be created an d handles
+        public static void saveTasks(ArrayList<String> tasks) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {   // GUTHUB ADDED THIS
+                for (String task : tasks) {                                                 // PLUS SOURCE for understanding:
+                    writer.write(task);                                                         // W3schhols Java Switch
+                    writer.newLine();
+                }
+            } catch (IOException e) {
+                System.out.println("Error saving tasks: " + e.getMessage());
+            }
+        }
+
+        // Similar to previous method, yet now it's to load tasks from file
+        public static void loadTasks(ArrayList<String> tasks){
+            try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
+                while (reader.ready()) {
+                    String task = reader.readLine();
+                    tasks.add(task);
+                }
+            } catch (IOException e) {
+                System.out.println("Error loading tasks: " + e.getMessage());
+
+            }
+}
+
+
+public class mainList {
     public static void main(String[] args){
-        *taskmanager
+        TaskManager manager = new TaskManager();
 
     }
