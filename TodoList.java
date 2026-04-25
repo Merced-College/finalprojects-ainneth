@@ -4,12 +4,16 @@
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.io*;
 
 public class TodoList {
     public static void main(String[] args) {
+        private static final String FILE_NAME = "tasks.txt"; //GITHUB ADDED THIS
         Scanner scanner = new Scanner (System.in);
         ArrayList<String> tasks = new ArrayList<>();// added an array list that declares tasks
         int option;
+
+        loadTasks(tasks);
 
         System.out.println( "To-Do List Menu");
         System.out.println( "1. View Tasks");
@@ -48,6 +52,7 @@ public class TodoList {
                  int taskNumber = scanner.nextInt();
                  if(taskNumber > 0 && taskNumber <= tasks.size()) {         // couple errors fixed by GITHUB AI
                     tasks.remove(taskNumber -1);
+                    saveTasks(tasks);
                     System.out.println("Tasks successfully removed!");
                  } else {
                     System.out.println("Uh-oh! Invalid task number. Please try again.");
@@ -56,6 +61,32 @@ public class TodoList {
                     break;
                 }
                 
+        }
+
+        //Method allows for tasks to be saved
+        private static void saveTasks(ArrayList<String> tasks) {
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {   // GUTHUB ADDED THIS
+                for (String task : tasks) {                                                 // PLUS SOURCE for understanding:
+                    writer.write(task);                                                         // W3schhols Java Switch
+                    writer.newLine();
+                }
+            } catch (IOException e) {
+                System.out.println("Error saving tasks: " + e.getMessage());
+            }
+        }
+
+        // Similar to previous method, yet now it's to load tasks from file
+        private static void loadTasks(ArrayList<String> tasks){
+            try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
+                while (reader.ready()) {
+                    String task = reader.readLine();
+                    tasks.add(task);
+                }
+            } catch (IOException e) {
+                System.out.println("Error loading tasks: " + e.getMessage());
+
+            }
+        }
         }
 
 
