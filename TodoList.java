@@ -40,9 +40,21 @@ public class TodoList {
                 System.out.println( "Your task has been added!");
                 break;
             case 3:
-                System.out.println("Remove task:");
-                break;
-        }
+                if(tasks.isEmpty()) { 
+                    System.out.println("There are no tasks to remove.");
+                }else {
+                 System.out.println("Remove task:");
+                 int taskNumber = scanner.nextInt();
+                 if(taskNumber > 0 && taskNumber <= tasks.size()) {         // couple errors fixed by GITHUB AI
+                    tasks.remove(taskNumber -1);
+                    System.out.println("Tasks successfully removed!");
+                 } else {
+                    System.out.println("Uh-oh! Invalid task number. Please try again.");
+                 }
+                 }
+                    break;
+                }
+                
         }
 
 
