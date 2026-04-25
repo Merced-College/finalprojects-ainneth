@@ -48,7 +48,7 @@ public class TodoList {
             case 2:
                 System.out.println("Enter task: ");
                 String task = scanner.nextLine();// GITHUB added this
-                tasks.add(task);
+                
                 saveTasks(tasks);
                 System.out.println( "Your task has been added!");
                 break;
@@ -58,9 +58,6 @@ public class TodoList {
                 }else {
                  System.out.println("Remove task:");
                  int taskNumber = scanner.nextInt();
-                 if(taskNumber > 0 && taskNumber <= tasks.size()) {         // couple errors fixed by GITHUB AI
-                    tasks.remove(taskNumber -1);
-                    saveTasks(tasks);
                     System.out.println("Tasks successfully removed!");
                  } else {
                     System.out.println("Uh-oh! Invalid task number. Please try again.");
@@ -72,10 +69,13 @@ public class TodoList {
                         System.out.println("Bye!");
                     break;
                 }
+
+                    scanner.close();
+                }
                 
-        }
 
         //Method allows for tasks to be saved
+        // BufferedWriter allows for files to be created an d handles
         private static void saveTasks(ArrayList<String> tasks) {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {   // GUTHUB ADDED THIS
                 for (String task : tasks) {                                                 // PLUS SOURCE for understanding:
@@ -100,3 +100,22 @@ public class TodoList {
             }
         }
         }// ToDo list class
+
+class TaskManager{
+    private ArrayList<Task> tasks = new ArrayList<>();
+        public void addTask(String desc){}
+            tasks.add(task);
+}
+        public void removeTask(int index){}
+            if(index > 0 && index <= tasks.size()) {         // tasknumber has been switched to index
+                    tasks.remove(index -1);
+            } else {
+                    System.out.println("Uh-oh! Invalid task number. Please try again.");
+            }
+        }
+
+public class TodoListnew {
+    public static void main(String[] args){
+        *taskmanager
+
+    }
