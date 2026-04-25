@@ -23,6 +23,7 @@ public class TodoList {
         System.out.println( "1. View Tasks");
         System.out.println("2. Add a Task");
         System.out.println("3. Remove a Task");
+        System.out.println("4. Leave");
         System.out.println("Choose an option: ");
 
         option = scanner.nextInt();
@@ -63,8 +64,12 @@ public class TodoList {
                     System.out.println("Tasks successfully removed!");
                  } else {
                     System.out.println("Uh-oh! Invalid task number. Please try again.");
+                     }
                  }
-                 }
+                    break;
+                    
+                    case 4:
+                        System.out.println("Bye!");
                     break;
                 }
                 
