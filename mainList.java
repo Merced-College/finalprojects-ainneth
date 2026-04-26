@@ -15,7 +15,7 @@ import java.util.Stack;
 import java.util.Queue; // addings for future use if needed
 import java.util.LinkedList;
 
-class Task {
+class Task {  // representationof a single tasks within the to-do list
     private String description;
 
     public Task( String description) {
@@ -25,25 +25,25 @@ class Task {
     public String getDescription() {
     return description;
 }
-    @Override
+    @Override 
      public String toString() {
          return description;
     }
 }//class task end
 
-class TaskManager{
-    private ArrayList<Task> tasks = new ArrayList<>();
-    private Stack<Task> undoStack = new Stack<>();
-    private Queue<Task> taskQueue = new LinkedList<>();
+class TaskManager{ // class of TaskManager handles much of the logistics for the to-do list: adding, removing, etc
+    private ArrayList<Task> tasks = new ArrayList<>(); // tasks stored from the arraylist
+    private Stack<Task> undoStack = new Stack<>(); // undoes the previous removal
+    private Queue<Task> taskQueue = new LinkedList<>(); // tasks are placed in order from which they are added
 
 
     
-        public void addTask(String desc){
+        public void addTask(String desc){ // as noted before, adds a task to list AND queue
             Task task = new Task(desc);
             tasks.add(task);                // section fixed from assistance of CHATPGT, since original
             taskQueue.add(task);            // problem was creating 2 different task ovjects 
         }
-        public void removeTask(int index){
+        public void removeTask(int index){  // removes a task from list AND includes it to the stack in case of wanting to undo the removal
             if(index >= 0 && index < tasks.size()) {         // tasknumber has been switched to index           GITHUB FIXED TASK REMOVAL ERROR
                     Task removed = tasks.remove(index);        //along with <= becoming just < and 
                     undoStack.push(removed);
@@ -54,9 +54,9 @@ class TaskManager{
         }
 
     /// undo remobe tasks method as wel asn the process of the nect task method are here
-            public void undoRemove() {
+            public void undoRemove() { // undoes the removal from previous option, addint back to the list
                 if (!undoStack.isEmpty()) {
-                    Task restored = undoStack.pop();
+                    Task restored = undoStack.pop(); 
                     tasks.add(restored); // asistance from CHATGPT, since task wasn't added back
                     System.out.println("Task restored: " + restored);
                 } else {
@@ -66,7 +66,7 @@ class TaskManager{
 
         public void processNextTask() {
             if ( !taskQueue.isEmpty()) {
-                Task next = taskQueue.poll();
+                Task next = taskQueue.poll(); // checks queue for the next task in order to be processed and display it
                 System.out.println( "Processing the next task: " + next);
             }else{ 
                 System.out.println("No tasks in the queue to process.");
@@ -75,17 +75,17 @@ class TaskManager{
 
 
         public void listTasks() {
-            if (tasks.isEmpty()){
+            if (tasks.isEmpty()){ // when there are no tasks, the program lets the user know
                     System.out.println("There are no tasks available to view.");
                 } else {
-                for (int i =0; i < tasks.size(); i++){
+                for (int i =0; i < tasks.size(); i++){ // tasks lists ordered with their corresponing number
                     System.out.println((i+1)+ ". " + tasks.get(i));
         }
     }
 }
 
     public ArrayList<Task> getTasks() {
-        return tasks;
+        return tasks; // gets the current list of tasks, allowing for FileHandler to access it
     }
 
     public void setTasks(ArrayList<Task> loadedTasks) {
@@ -95,15 +95,15 @@ class TaskManager{
 }// class taskManager
 
 class FileHandler {
-    private static final String FILE_NAME = "tasks.txt";
+    private static final String FILE_NAME = "tasks.txt"; // file name, where final tasks cannot be changed yet accessed
 
     //Method allows for tasks to be saved
         // BufferedWriter allows for files to be created an d handles
         public static void save(ArrayList<Task> tasks) {
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {   // GUTHUB ADDED THIS
                 for (Task task : tasks) {                                                 // PLUS SOURCE for understanding:
-                    writer.write(task.getDescription());                                                         // W3schhols Java Switch
-                    writer.newLine();
+                    writer.write(task.getDescription());                          // W3schhols Java Switch || tasks per line
+                    writer.newLine();                                           // the FileWrtiter connects file, while the BufferedWriter allows for writing 
                 }
             } catch (IOException e) {
                 System.out.println("Error saving tasks: " + e.getMessage());
@@ -112,10 +112,10 @@ class FileHandler {
 
         // Similar to previous method, yet now it's to load tasks from file
         public static ArrayList<Task> load(){
-            ArrayList<Task> tasks = new ArrayList<>();
+            ArrayList<Task> tasks = new ArrayList<>(); // will holf loaded tasks
             File file = new File(FILE_NAME);
 
-            if (!file.exists()) return tasks;
+            if (!file.exists()) return tasks; // checks if file exists
             
             try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
                 String line;
@@ -168,41 +168,41 @@ class MenuScreen {
 
         /* rather than using if else statements, the switch statement provides
          a easier view of when a choice is made */
-        switch(option) {
-            case 1:
+        switch(option) {  // handles the options for the menu from 1-6
+            case 1: // view tasks 
                 manager.listTasks();
                 break;
-            case 2:
+            case 2: // add a task
                 System.out.println("Enter task: ");
                 String task = scanner.nextLine();// GITHUB added this
                 manager.addTask(task);
                 FileHandler.save(manager.getTasks()); // GITHUB added this to save tasks after they are added using the file 
                 break;
-            case 3:
+            case 3: // remove a task
                  System.out.println("Enter Task # to remove task:");
                  int taskNumber = scanner.nextInt();
                  scanner.nextLine(); // Assistance from CHATPT to fix error after removing task
                  manager.removeTask(taskNumber-1);
                  FileHandler.save(manager.getTasks());
                     break;
-            case 4:
+            case 4: // undo the previos removal of a task
                 manager.undoRemove();
                 FileHandler.save(manager.getTasks()); //Github added this
                 break;
 
-            case 5:
+            case 5: // process the next task
                 manager.processNextTask();
                 FileHandler.save(manager.getTasks());
                 break;
                     
-             case 6:
+             case 6: //exit the program
                 System.out.println("Bye!");
                 break;
 
                 default:
                     System.out.println( "Invalid option. Please choose a listed number.");
             }
-            } while (option !=6); //LOOP ADDED LETS GOO
+            } while (option !=6); //LOOP ADDED LETS GOO , in general keeps the program going until the user exits
         }
     }
            
@@ -212,13 +212,13 @@ class MenuScreen {
 
 
 
-public class mainList {
+public class mainList { // class where program starts, including loaded tasks from files along with bits frmo taskmanager and handler
     public static void main(String[] args){
-        TaskManager manager = new TaskManager();
+        TaskManager manager = new TaskManager(); // manager created 
 
-        manager.setTasks(FileHandler.load());
+        manager.setTasks(FileHandler.load()); // tasks are loaded from the file, setting to manager
         
-        MenuScreen menu = new MenuScreen(manager); // GITHUB FIXED THIS
+        MenuScreen menu = new MenuScreen(manager); // GITHUB FIXED THIS  |||| starts the menu with manager
         menu.start();
     }
 
