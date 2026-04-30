@@ -46,10 +46,11 @@ class TaskManager{ // class of TaskManager handles much of the logistics for the
         public void removeTask(int index){  // removes a task from list AND includes it to the stack in case of wanting to undo the removal
             if(index >= 0 && index < tasks.size()) {         // tasknumber has been switched to index           GITHUB FIXED TASK REMOVAL ERROR
                     Task removed = tasks.remove(index);        //along with <= becoming just < and 
-                   taskQueue.remove(removed); // tasks os removed from queue, and won't be processed
+                   taskQueue.remove(removed); // tasks is removed from queue, and won't be processed
                     undoStack.push(removed);
-                System.out.println( "Task removed successfully.");           
+                System.out.println( "\nTask removed successfully.\n");           
             } else {
+                    System.out.println(); // space
                     System.out.println("Uh-oh! Invalid task number. Please try again.");
             }
         }
@@ -60,8 +61,10 @@ class TaskManager{ // class of TaskManager handles much of the logistics for the
                     Task restored = undoStack.pop(); 
                     tasks.add(restored); // asistance from CHATGPT, since task wasn't added back
                     taskQueue.add(restored); // task added back to queue
+                    System.out.println(); // space
                     System.out.println("Task restored: " + restored);
                 } else {
+                    System.out.println(); // space
                     System.out.println( "Nothing to undo.");
                 }
             }//end of undoRemove
@@ -69,8 +72,10 @@ class TaskManager{ // class of TaskManager handles much of the logistics for the
         public void processNextTask() {
             if ( !taskQueue.isEmpty()) {
                 Task next = taskQueue.poll(); // checks queue for the next task in order to be processed and display it
+                System.out.println(); // space
                 System.out.println( "Processing the next task: " + next);
             }else{ 
+                System.out.println(); // space
                 System.out.println("No tasks in the queue to process.");
             }
         }
@@ -78,11 +83,15 @@ class TaskManager{ // class of TaskManager handles much of the logistics for the
 
         public void listTasks() {
             if (tasks.isEmpty()){ // when there are no tasks, the program lets the user know
+                    System.out.println(); // space
                     System.out.println("There are no tasks available to view.");
                 } else {
+                    System.out.println(); // space
+                    System.out.println("TASKS:");
                 for (int i =0; i < tasks.size(); i++){ // tasks lists ordered with their corresponing number
                     System.out.println((i+1)+ ". " + tasks.get(i));
         }
+        System.out.println();
     }
 }
 
@@ -146,14 +155,16 @@ class MenuScreen {
 
         //removed of   loadTasks(tasks);
     do {
+        System.out.println("===================");
         System.out.println( "To-Do List Menu");
+        System.out.println("===================");
         System.out.println( "1. View Tasks");
         System.out.println("2. Add a Task");
         System.out.println("3. Remove a Task");
         System.out.println("4. Undo Removal");
         System.out.println("5. Continue with Next Task");
         System.out.println("6. Leave");
-        System.out.println("Choose an option: ");
+        System.out.print("Choose an option: ");
 
         if (scanner.hasNextInt()) {
             option = scanner.nextInt();
@@ -174,32 +185,38 @@ class MenuScreen {
         switch(option) {  // handles the options for the menu from 1-6
             case 1: // view tasks 
                 manager.listTasks();
+                System.out.println(); // space
                 break;
             case 2: // add a task
                 System.out.println("Enter task: ");
                 String task = scanner.nextLine();// GITHUB added this
                 manager.addTask(task);
                 FileHandler.save(manager.getTasks()); // GITHUB added this to save tasks after they are added using the file 
+                 System.out.println(); // space
                 break;
             case 3: // remove a task
-                 System.out.println("Enter Task # to remove task:");
+                 System.out.print("Enter Task # to remove task: ");
                  int taskNumber = scanner.nextInt();
                  scanner.nextLine(); // Assistance from CHATPT to fix error after removing task
                  manager.removeTask(taskNumber-1);
                  FileHandler.save(manager.getTasks());
-                    break;
+                 System.out.println(); // space
+                 break;
             case 4: // undo the previos removal of a task
                 manager.undoRemove();
                 FileHandler.save(manager.getTasks()); //Github added this
+                System.out.println(); // space
                 break;
 
             case 5: // process the next task
                 manager.processNextTask();
                 FileHandler.save(manager.getTasks());
+                System.out.println(); // space
                 break;
                     
              case 6: //exit the program
                 System.out.println("Bye!");
+                System.out.println(); // space
                 break;
 
                 default:
