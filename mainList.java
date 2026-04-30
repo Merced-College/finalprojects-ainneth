@@ -1,6 +1,6 @@
 //Angie Alvarez
 //Date: 4/24/2026
-//Final Project: To-Do-List
+//Final Project: To-Do-List Project 
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import java.util.Stack;
-import java.util.Queue; // addings for future use if needed
+import java.util.Queue; 
 import java.util.LinkedList;
 
 class Task {  // representationof a single tasks within the to-do list
@@ -46,6 +46,7 @@ class TaskManager{ // class of TaskManager handles much of the logistics for the
         public void removeTask(int index){  // removes a task from list AND includes it to the stack in case of wanting to undo the removal
             if(index >= 0 && index < tasks.size()) {         // tasknumber has been switched to index           GITHUB FIXED TASK REMOVAL ERROR
                     Task removed = tasks.remove(index);        //along with <= becoming just < and 
+                   taskQueue.remove(removed); // tasks os removed from queue, and won't be processed
                     undoStack.push(removed);
                 System.out.println( "Task removed successfully.");           
             } else {
@@ -58,6 +59,7 @@ class TaskManager{ // class of TaskManager handles much of the logistics for the
                 if (!undoStack.isEmpty()) {
                     Task restored = undoStack.pop(); 
                     tasks.add(restored); // asistance from CHATGPT, since task wasn't added back
+                    taskQueue.add(restored); // task added back to queue
                     System.out.println("Task restored: " + restored);
                 } else {
                     System.out.println( "Nothing to undo.");
@@ -90,6 +92,7 @@ class TaskManager{ // class of TaskManager handles much of the logistics for the
 
     public void setTasks(ArrayList<Task> loadedTasks) {
         tasks = loadedTasks;
+        taskQueue.clear(); // clear queue to make sure there's no duplication
         taskQueue.addAll(loadedTasks); // GITHUB added this to ensure that loaded tasks are also added to the queue for processing
     }
 }// class taskManager
