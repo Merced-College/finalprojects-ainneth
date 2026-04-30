@@ -44,7 +44,7 @@ class TaskManager{ // class of TaskManager handles much of the logistics for the
             taskQueue.add(task);            // problem was creating 2 different task ovjects 
         }
         public void removeTask(int index){  // removes a task from list AND includes it to the stack in case of wanting to undo the removal
-            if(index >= 0 && index < tasks.size()) {         // tasknumber has been switched to index           GITHUB FIXED TASK REMOVAL ERROR
+            if(index >= 0 && index < tasks.size()) {         // Prevents any funyy business if user puts invalid choice +  tasknumber has been switched to index           GITHUB FIXED TASK REMOVAL ERROR
                     Task removed = tasks.remove(index);        //along with <= becoming just < and 
                    taskQueue.remove(removed); // tasks is removed from queue, and won't be processed
                     undoStack.push(removed);
@@ -55,11 +55,11 @@ class TaskManager{ // class of TaskManager handles much of the logistics for the
             }
         }
 
-    /// undo remobe tasks method as wel asn the process of the nect task method are here
-            public void undoRemove() { // undoes the removal from previous option, addint back to the list
+    /// undo remove tasks method as well as the process of the next task method are here
+            public void undoRemove() { // undoes the removal from previous option, add it back to the list
                 if (!undoStack.isEmpty()) {
-                    Task restored = undoStack.pop(); 
-                    tasks.add(restored); // asistance from CHATGPT, since task wasn't added back
+                    Task restored = undoStack.pop(); // Latest task pops, adding it back
+                    tasks.add(restored); //     asistance from CHATGPT, since task wasn't added back
                     taskQueue.add(restored); // task added back to queue
                     System.out.println(); // space
                     System.out.println("Task restored: " + restored);
@@ -88,7 +88,7 @@ class TaskManager{ // class of TaskManager handles much of the logistics for the
                 } else {
                     System.out.println(); // space
                     System.out.println("TASKS:");
-                for (int i =0; i < tasks.size(); i++){ // tasks lists ordered with their corresponing number
+                for (int i =0; i < tasks.size(); i++){ // tasks lists ordered with their corresponing number(INDEX)
                     System.out.println((i+1)+ ". " + tasks.get(i));
         }
         System.out.println();
@@ -100,7 +100,7 @@ class TaskManager{ // class of TaskManager handles much of the logistics for the
     }
 
     public void setTasks(ArrayList<Task> loadedTasks) {
-        tasks = loadedTasks;
+        tasks = loadedTasks; // starts prgram with task that are loaded from file
         taskQueue.clear(); // clear queue to make sure there's no duplication
         taskQueue.addAll(loadedTasks); // GITHUB added this to ensure that loaded tasks are also added to the queue for processing
     }
@@ -198,7 +198,7 @@ class MenuScreen {
                  System.out.print("Enter Task # to remove task: ");
                  int taskNumber = scanner.nextInt();
                  scanner.nextLine(); // Assistance from CHATPT to fix error after removing task
-                 manager.removeTask(taskNumber-1);
+                 manager.removeTask(taskNumber-1); // remember index starts at 0!
                  FileHandler.save(manager.getTasks());
                  System.out.println(); // space
                  break;
