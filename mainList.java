@@ -1,17 +1,17 @@
 //Angie Alvarez
 //Date: 4/24/2026
 //Final Project: To-Do-List Project 
+import java.util.Scanner; // reads input
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
-import java.io.File;
+import java.io.File;        // file handling
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Scanner;
 
-import java.util.Stack;
+import java.util.ArrayList;
+import java.util.Stack;  // data structures
 import java.util.Queue; 
 import java.util.LinkedList;
 
@@ -19,14 +19,14 @@ class Task {  // representationof a single tasks within the to-do list
     private String description;
 
     public Task( String description) {
-    this.description = description;
+    this.description = description; // constructor for task
 }
 
-    public String getDescription() {
+    public String getDescription() { // getter 
     return description;
 }
     @Override 
-     public String toString() {
+     public String toString() { // toString method,tasks be printed as their description 
          return description;
     }
 }//class task end
@@ -144,7 +144,7 @@ class FileHandler {
 
 
 class MenuScreen {
-    private Scanner scanner = new Scanner (System.in);
+    private Scanner scanner = new Scanner (System.in); // reads user input for menu options + task descriptions
     private TaskManager manager; //Removed the == new TaskManager();
 
     public MenuScreen( TaskManager manager) {
